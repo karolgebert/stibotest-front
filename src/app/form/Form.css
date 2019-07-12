@@ -1,0 +1,11 @@
+Form {
+    margin-top: 20px;
+}
+
+Form fieldset {
+    border: none;
+}
+
+Form input, Form select {
+    margin-right: 10px;
+}

@@ -1,26 +1,49 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Table} from './common/table/Table';
+import {Controls} from './app/controls/Controls';
+import {Form} from './app/form/Form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoaded: false,
+            tasks: []
+        };
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:8080/task')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({
+                    isLoaded: true,
+                    tasks: json
+                })
+            })
+            .catch(err => console.error(err));
+    }
+
+    render() {
+        if (this.state.isLoaded) {
+            return (
+                <div className='App'>
+                    <Table
+                        headers={['Task name', 'Status (done/planned)', 'Controls']}
+                        rows={this.state.tasks}
+                    >
+                    </Table>
+
+                    <Form/>
+                </div>
+            );
+        } else {
+            return (
+                <div>Is loading...</div>
+            )
+        }
+    }
 }
 
 export default App;
