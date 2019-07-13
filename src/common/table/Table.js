@@ -12,6 +12,9 @@ export class Table extends React.Component {
     };
 
     createRows = () => {
+        if (this.props.rows.length === 0) {
+            return <tr><td className='empty' colSpan={3}>There is no task to display</td></tr>
+        }
         return this.props.rows.map((row, rIndex) => {
            return <tr key={rIndex}>{row.map((value, vIndex) => {
                return <td key={vIndex}>{value}</td>

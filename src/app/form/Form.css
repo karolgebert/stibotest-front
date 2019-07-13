@@ -3,9 +3,19 @@ Form {
 }
 
 Form fieldset {
-    border: none;
+    border: 1px solid #61dafb;
+    font-size: 0.7em;
 }
 
 Form input, Form select {
     margin-right: 10px;
+}
+
+Form select {
+    margin-left: 10px;
+}
+
+.validationError {
+    color: firebrick;
+    font-size: 0.6em;
 }
