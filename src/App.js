@@ -10,7 +10,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             isLoaded: false,
-            tasks: []
+            tasks: [],
+            headers: ['Task name', 'Status (done/planned)', 'Controls']
         };
     }
 
@@ -40,6 +41,11 @@ class App extends React.Component {
         this.forceUpdate();
     }
 
+    onSubmit(task) {
+        this.state.tasks.push(task);
+        this.forceUpdate();
+    }
+
     componentDidMount() {
         Http.doGet('/task')
             .then(res => res.json())
@@ -57,15 +63,12 @@ class App extends React.Component {
             return (
                 <div className='App'>
                     <Table
-                        headers={['Task name', 'Status (done/planned)', 'Controls']}
+                        headers={this.state.headers}
                         rows={this.getRows(this.state.tasks)}
                     >
                     </Table>
 
-                    <Form onSubmit={(task) => {
-                        this.state.tasks.push(task);
-                        this.forceUpdate();
-                    }} />
+                    <Form onSubmit={(task) => {this.onSubmit(task)}} />
                 </div>
             );
         } else {

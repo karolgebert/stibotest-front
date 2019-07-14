@@ -4,10 +4,6 @@ import {Button} from '../../common/button/Button';
 import {Http} from '../../service/Http';
 
 export class Controls extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     onDone = () => {
         this.props.task.done = this.props.task.planned;
         Http.doPut('/task', this.props.task).then(() => {
